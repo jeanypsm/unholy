@@ -3,8 +3,8 @@ import { useEffect, useRef } from "react";
 interface Particle {
   x: number;
   y: number;
-  vx: number;
-  vy: number;
+  targetX: number;
+  targetY: number;
   size: number;
   alpha: number;
   decay: number;
@@ -30,42 +30,35 @@ const ParticleCanvas = () => {
     resize();
     window.addEventListener("resize", resize);
 
-    const createParticle = (x: number, y: number) => {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 2 + 0.5;
+    const createParticle = (x: number, y: number, isClick = false) => {
+      const spread = isClick ? 30 : 5;
       return {
-        x,
-        y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        size: Math.random() * 3 + 1,
+        x: x + (Math.random() - 0.5) * spread,
+        y: y + (Math.random() - 0.5) * spread,
+        targetX: x,
+        targetY: y,
+        size: isClick ? Math.random() * 2 + 1 : Math.random() * 2.5 + 1,
         alpha: 1,
-        decay: Math.random() * 0.02 + 0.01,
+        decay: isClick ? 0.03 : 0.015,
       };
     };
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
       
-      // Adicionar partículas ao mover o mouse
-      for (let i = 0; i < 2; i++) {
-        particlesRef.current.push(createParticle(e.clientX, e.clientY));
-      }
+      // Adicionar partícula suave ao mover
+      particlesRef.current.push(createParticle(e.clientX, e.clientY));
       
       // Limitar número de partículas
-      if (particlesRef.current.length > 100) {
-        particlesRef.current = particlesRef.current.slice(-100);
+      if (particlesRef.current.length > 60) {
+        particlesRef.current = particlesRef.current.slice(-60);
       }
     };
 
     const handleClick = (e: MouseEvent) => {
-      // Explosão de partículas ao clicar
-      for (let i = 0; i < 30; i++) {
-        const particle = createParticle(e.clientX, e.clientY);
-        particle.vx *= 3;
-        particle.vy *= 3;
-        particle.size *= 1.5;
-        particlesRef.current.push(particle);
+      // Efeito menor ao clicar
+      for (let i = 0; i < 8; i++) {
+        particlesRef.current.push(createParticle(e.clientX, e.clientY, true));
       }
     };
 
@@ -77,16 +70,38 @@ const ParticleCanvas = () => {
 
       particlesRef.current = particlesRef.current.filter((p) => p.alpha > 0);
 
+      // Desenhar linha conectando partículas
+      if (particlesRef.current.length > 1) {
+        ctx.beginPath();
+        ctx.moveTo(particlesRef.current[0].x, particlesRef.current[0].y);
+        
+        for (let i = 1; i < particlesRef.current.length; i++) {
+          const p = particlesRef.current[i];
+          const prev = particlesRef.current[i - 1];
+          
+          // Curva suave entre pontos
+          const midX = (prev.x + p.x) / 2;
+          const midY = (prev.y + p.y) / 2;
+          ctx.quadraticCurveTo(prev.x, prev.y, midX, midY);
+        }
+        
+        ctx.strokeStyle = `hsla(0, 85%, 45%, 0.4)`;
+        ctx.lineWidth = 1.5;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = `hsla(0, 100%, 50%, 0.5)`;
+        ctx.stroke();
+      }
+
+      // Desenhar partículas
       particlesRef.current.forEach((particle) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
         particle.alpha -= particle.decay;
-        particle.vy += 0.02; // Gravidade
 
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(0, 85%, 45%, ${particle.alpha})`;
-        ctx.shadowBlur = 15;
+        ctx.arc(particle.x, particle.y, particle.size * particle.alpha, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(0, 85%, 45%, ${particle.alpha * 0.8})`;
+        ctx.shadowBlur = 8;
         ctx.shadowColor = `hsla(0, 100%, 50%, ${particle.alpha})`;
         ctx.fill();
       });
