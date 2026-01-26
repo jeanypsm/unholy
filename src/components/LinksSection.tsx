@@ -1,41 +1,34 @@
-import { MessageCircle, Users, Instagram, Skull, Crown, ArrowRight } from "lucide-react";
+import { MessageCircle, Users, Instagram, Skull, Crown, ArrowRight, Music, Gamepad2, Film, BookOpen, Heart, Zap, Globe, Youtube, Twitter, Link2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSiteData } from "@/contexts/SiteDataContext";
 import LinkCard from "./LinkCard";
 
-const links = [
-  {
-    title: "Grupo Principal",
-    description: "Entre no grupo oficial da UNHOLY",
-    href: "#",
-    icon: <Users className="h-6 w-6" />,
-  },
-  {
-    title: "WhatsApp",
-    description: "Grupo de WhatsApp",
-    href: "#",
-    icon: <MessageCircle className="h-6 w-6" />,
-  },
-  {
-    title: "Instagram",
-    description: "@unholy.alianca",
-    href: "#",
-    icon: <Instagram className="h-6 w-6" />,
-  },
-  {
-    title: "Discord",
-    description: "Servidor exclusivo",
-    href: "#",
-    icon: <Skull className="h-6 w-6" />,
-  },
-  {
-    title: "Telegram",
-    description: "Canal de avisos",
-    href: "#",
-    icon: <Crown className="h-6 w-6" />,
-  },
-];
+const getIconForLink = (title: string) => {
+  const iconMap: Record<string, React.ReactNode> = {
+    "Grupo Principal": <Users className="h-6 w-6" />,
+    "WhatsApp": <MessageCircle className="h-6 w-6" />,
+    "Discord": <Skull className="h-6 w-6" />,
+    "Telegram": <Crown className="h-6 w-6" />,
+    "Instagram": <Instagram className="h-6 w-6" />,
+    "Twitter/X": <Twitter className="h-6 w-6" />,
+    "YouTube": <Youtube className="h-6 w-6" />,
+    "Playlists": <Music className="h-6 w-6" />,
+    "Gaming": <Gamepad2 className="h-6 w-6" />,
+    "Filmes": <Film className="h-6 w-6" />,
+    "Regras": <BookOpen className="h-6 w-6" />,
+    "Parcerias": <Heart className="h-6 w-6" />,
+    "Novidades": <Zap className="h-6 w-6" />,
+    "Site Oficial": <Globe className="h-6 w-6" />,
+  };
+  return iconMap[title] || <Link2 className="h-6 w-6" />;
+};
 
 const LinksSection = () => {
+  const { data } = useSiteData();
+  
+  // Pegar os primeiros 5 links para mostrar na home
+  const homeLinks = data.links.slice(0, 5);
+
   return (
     <section className="relative px-4 py-20">
       {/* Background texture */}
@@ -56,13 +49,18 @@ const LinksSection = () => {
 
         {/* Links grid */}
         <div className="grid gap-4">
-          {links.map((link, index) => (
+          {homeLinks.map((link, index) => (
             <div
-              key={link.title}
+              key={link.id}
               className="animate-fade-in-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <LinkCard {...link} />
+              <LinkCard 
+                title={link.title}
+                description={link.description}
+                href={link.href}
+                icon={getIconForLink(link.title)}
+              />
             </div>
           ))}
         </div>
