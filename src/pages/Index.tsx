@@ -1,11 +1,13 @@
 import HeroSection from "@/components/HeroSection";
 import LinksSection from "@/components/LinksSection";
+import MembersSection from "@/components/MembersSection";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import ParticleCanvas from "@/components/ParticleCanvas";
 import BloodDrip from "@/components/BloodDrip";
 import FloatingSymbols from "@/components/FloatingSymbols";
 import GlitchOverlay from "@/components/GlitchOverlay";
+import MouseFollower from "@/components/MouseFollower";
 
 const Index = () => {
   return (
@@ -16,6 +18,9 @@ const Index = () => {
       <ParticleCanvas />
       <GlitchOverlay />
       
+      {/* Elemento que segue o mouse */}
+      <MouseFollower />
+      
       {/* Linha de progresso */}
       <ScrollProgress />
       
@@ -24,6 +29,7 @@ const Index = () => {
       
       <HeroSection />
       <LinksSection />
+      <MembersSection />
       <Footer />
     </div>
   );

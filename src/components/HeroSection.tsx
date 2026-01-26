@@ -1,6 +1,15 @@
+import { useEffect, useState } from "react";
 import unholyLogo from "@/assets/unholy-logo.png";
 
 const HeroSection = () => {
+  const [titleVisible, setTitleVisible] = useState(false);
+  const letters = "UNHOLY".split("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => setTitleVisible(true), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-20">
       {/* Background glow */}
@@ -26,16 +35,30 @@ const HeroSection = () => {
           />
         </div>
 
-        {/* Title */}
-        <h1 
-          className="animate-fade-in-up font-display text-4xl font-black uppercase tracking-[0.2em] text-bone sm:text-5xl md:text-7xl"
-          style={{ animationDelay: "0.2s" }}
-        >
-          <span className="glitch-text text-glow-blood text-primary">UNHOLY</span>
+        {/* Title with letter animation */}
+        <h1 className="font-display text-4xl font-black uppercase tracking-[0.2em] sm:text-5xl md:text-7xl">
+          <span className="flex">
+            {letters.map((letter, index) => (
+              <span
+                key={index}
+                className="inline-block text-primary transition-all duration-500"
+                style={{
+                  opacity: titleVisible ? 1 : 0,
+                  transform: titleVisible ? "translateY(0) scale(1)" : "translateY(30px) scale(0.5)",
+                  transitionDelay: `${index * 100}ms`,
+                  textShadow: titleVisible 
+                    ? "0 0 20px hsl(0 85% 45%), 0 0 40px hsl(0 85% 45% / 0.5), 0 0 60px hsl(0 85% 45% / 0.3)"
+                    : "none",
+                }}
+              >
+                {letter}
+              </span>
+            ))}
+          </span>
         </h1>
         <h2 
           className="animate-fade-in-up font-display text-2xl font-bold uppercase tracking-[0.4em] text-ash sm:text-3xl md:text-4xl"
-          style={{ animationDelay: "0.3s" }}
+          style={{ animationDelay: "0.8s" }}
         >
           ALIANÇA
         </h2>
@@ -43,17 +66,17 @@ const HeroSection = () => {
         {/* Decorative line */}
         <div 
           className="animate-fade-in-up mt-8 flex items-center gap-4"
-          style={{ animationDelay: "0.4s" }}
+          style={{ animationDelay: "1s" }}
         >
           <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-primary" />
-          <div className="h-2 w-2 rotate-45 border border-primary bg-primary/20" />
+          <div className="h-2 w-2 rotate-45 border border-primary bg-primary/20 shadow-[0_0_10px_hsl(var(--blood))]" />
           <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary" />
         </div>
 
         {/* Tagline */}
         <p 
           className="animate-fade-in-up mt-6 font-mono text-sm uppercase tracking-widest text-ash"
-          style={{ animationDelay: "0.5s" }}
+          style={{ animationDelay: "1.1s" }}
         >
           [ CENTRAL DA ALIANÇA ]
         </p>
@@ -61,7 +84,7 @@ const HeroSection = () => {
         {/* Scroll indicator */}
         <div 
           className="animate-fade-in-up mt-16 flex flex-col items-center gap-2"
-          style={{ animationDelay: "0.8s" }}
+          style={{ animationDelay: "1.4s" }}
         >
           <span className="font-mono text-xs uppercase tracking-widest text-ash/50">
             role para baixo
