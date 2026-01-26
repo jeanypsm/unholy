@@ -1,4 +1,5 @@
-import { MessageCircle, Users, Instagram, Link2, Skull, Crown } from "lucide-react";
+import { MessageCircle, Users, Instagram, Skull, Crown, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import LinkCard from "./LinkCard";
 
 const links = [
@@ -32,12 +33,6 @@ const links = [
     href: "#",
     icon: <Crown className="h-6 w-6" />,
   },
-  {
-    title: "Outros Links",
-    description: "Links extras",
-    href: "#",
-    icon: <Link2 className="h-6 w-6" />,
-  },
 ];
 
 const LinksSection = () => {
@@ -70,6 +65,20 @@ const LinksSection = () => {
               <LinkCard {...link} />
             </div>
           ))}
+        </div>
+
+        {/* Ver todos os links */}
+        <div className="mt-10 text-center">
+          <Link
+            to="/links"
+            className="group inline-flex items-center gap-3 border border-primary bg-primary/10 px-8 py-4 font-display text-sm font-bold uppercase tracking-widest text-primary transition-all duration-300 hover:bg-primary hover:text-background hover:shadow-[0_0_30px_hsl(var(--blood)/0.5)]"
+          >
+            <span>Ver Todos os Links</span>
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+          <p className="mt-3 font-mono text-xs text-ash/50">
+            Coletânea completa de links da aliança
+          </p>
         </div>
       </div>
     </section>
