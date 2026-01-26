@@ -14,6 +14,7 @@ export interface LinkItem {
   description: string;
   category: string;
   href: string;
+  icon: string;
 }
 
 export interface SiteData {
@@ -45,18 +46,18 @@ const defaultData: SiteData = {
     },
   ],
   links: [
-    { id: "1", title: "Grupo Principal", description: "Grupo oficial da UNHOLY", category: "Grupos", href: "#" },
-    { id: "2", title: "WhatsApp", description: "Grupo de WhatsApp", category: "Grupos", href: "#" },
-    { id: "3", title: "Discord", description: "Servidor exclusivo", category: "Grupos", href: "#" },
-    { id: "4", title: "Telegram", description: "Canal de avisos", category: "Grupos", href: "#" },
-    { id: "5", title: "Instagram", description: "@unholy.alianca", category: "Redes Sociais", href: "#" },
-    { id: "6", title: "Twitter/X", description: "@unholyalianca", category: "Redes Sociais", href: "#" },
-    { id: "7", title: "YouTube", description: "Canal oficial", category: "Redes Sociais", href: "#" },
-    { id: "8", title: "Playlists", description: "Músicas da aliança", category: "Entretenimento", href: "#" },
-    { id: "9", title: "Gaming", description: "Servidor de jogos", category: "Entretenimento", href: "#" },
-    { id: "10", title: "Filmes", description: "Recomendações", category: "Entretenimento", href: "#" },
-    { id: "11", title: "Regras", description: "Leia antes de entrar", category: "Outros", href: "#" },
-    { id: "12", title: "Parcerias", description: "Alianças parceiras", category: "Outros", href: "#" },
+    { id: "1", title: "Grupo Principal", description: "Grupo oficial da UNHOLY", category: "Grupos", href: "#", icon: "Users" },
+    { id: "2", title: "WhatsApp", description: "Grupo de WhatsApp", category: "Grupos", href: "#", icon: "MessageCircle" },
+    { id: "3", title: "Discord", description: "Servidor exclusivo", category: "Grupos", href: "#", icon: "Skull" },
+    { id: "4", title: "Telegram", description: "Canal de avisos", category: "Grupos", href: "#", icon: "Crown" },
+    { id: "5", title: "Instagram", description: "@unholy.alianca", category: "Redes Sociais", href: "#", icon: "Instagram" },
+    { id: "6", title: "Twitter/X", description: "@unholyalianca", category: "Redes Sociais", href: "#", icon: "Twitter" },
+    { id: "7", title: "YouTube", description: "Canal oficial", category: "Redes Sociais", href: "#", icon: "Youtube" },
+    { id: "8", title: "Playlists", description: "Músicas da aliança", category: "Entretenimento", href: "#", icon: "Music" },
+    { id: "9", title: "Gaming", description: "Servidor de jogos", category: "Entretenimento", href: "#", icon: "Gamepad2" },
+    { id: "10", title: "Filmes", description: "Recomendações", category: "Entretenimento", href: "#", icon: "Film" },
+    { id: "11", title: "Regras", description: "Leia antes de entrar", category: "Outros", href: "#", icon: "BookOpen" },
+    { id: "12", title: "Parcerias", description: "Alianças parceiras", category: "Outros", href: "#", icon: "Heart" },
   ],
 };
 
