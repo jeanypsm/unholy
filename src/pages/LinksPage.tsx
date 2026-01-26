@@ -1,32 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, ArrowLeft, ExternalLink, MessageCircle, Users, Instagram, Music, Gamepad2, Film, BookOpen, Skull, Crown, Heart, Zap, Globe, Youtube, Twitter, Link2 } from "lucide-react";
+import { Search, ArrowLeft, ExternalLink, Skull } from "lucide-react";
 import GridCanvas from "@/components/GridCanvas";
 import ScrollProgress from "@/components/ScrollProgress";
 import MouseFollower from "@/components/MouseFollower";
 import { useSiteData } from "@/contexts/SiteDataContext";
+import { getIconComponent } from "@/lib/icons";
 
 const categories = ["Todos", "Grupos", "Redes Sociais", "Entretenimento", "Outros"];
-
-const getIconForLink = (title: string) => {
-  const iconMap: Record<string, React.ReactNode> = {
-    "Grupo Principal": <Users className="h-5 w-5" />,
-    "WhatsApp": <MessageCircle className="h-5 w-5" />,
-    "Discord": <Skull className="h-5 w-5" />,
-    "Telegram": <Crown className="h-5 w-5" />,
-    "Instagram": <Instagram className="h-5 w-5" />,
-    "Twitter/X": <Twitter className="h-5 w-5" />,
-    "YouTube": <Youtube className="h-5 w-5" />,
-    "Playlists": <Music className="h-5 w-5" />,
-    "Gaming": <Gamepad2 className="h-5 w-5" />,
-    "Filmes": <Film className="h-5 w-5" />,
-    "Regras": <BookOpen className="h-5 w-5" />,
-    "Parcerias": <Heart className="h-5 w-5" />,
-    "Novidades": <Zap className="h-5 w-5" />,
-    "Site Oficial": <Globe className="h-5 w-5" />,
-  };
-  return iconMap[title] || <Link2 className="h-5 w-5" />;
-};
 
 const LinksPage = () => {
   const { data } = useSiteData();
@@ -122,40 +103,43 @@ const LinksPage = () => {
 
         {/* Links grid */}
         <div className="grid gap-4 sm:grid-cols-2">
-          {filteredLinks.map((link, index) => (
-            <a
-              key={link.id}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="animate-fade-in-up group relative overflow-hidden border border-primary/20 bg-card p-4 transition-all duration-300 hover:border-primary/50 hover:bg-secondary"
-              style={{ animationDelay: `${index * 0.05}s` }}
-            >
-              {/* Corner accent */}
-              <div className="absolute right-0 top-0 h-8 w-8 border-b border-l border-primary/20 bg-primary/5 transition-colors group-hover:border-primary/50 group-hover:bg-primary/10" />
-              
-              <div className="flex items-center gap-4">
-                {/* Icon */}
-                <div className="flex h-10 w-10 items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all group-hover:border-primary group-hover:bg-primary/20 group-hover:shadow-[0_0_15px_hsl(var(--blood)/0.5)]">
-                  {getIconForLink(link.title)}
+          {filteredLinks.map((link, index) => {
+            const IconComp = getIconComponent(link.icon);
+            return (
+              <a
+                key={link.id}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="animate-fade-in-up group relative overflow-hidden border border-primary/20 bg-card p-4 transition-all duration-300 hover:border-primary/50 hover:bg-secondary"
+                style={{ animationDelay: `${index * 0.05}s` }}
+              >
+                {/* Corner accent */}
+                <div className="absolute right-0 top-0 h-8 w-8 border-b border-l border-primary/20 bg-primary/5 transition-colors group-hover:border-primary/50 group-hover:bg-primary/10" />
+                
+                <div className="flex items-center gap-4">
+                  {/* Icon */}
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all group-hover:border-primary group-hover:bg-primary/20 group-hover:shadow-[0_0_15px_hsl(var(--blood)/0.5)]">
+                    <IconComp className="h-5 w-5" />
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-display text-sm font-bold uppercase tracking-wider text-bone transition-colors group-hover:text-primary truncate">
+                      {link.title}
+                    </h3>
+                    <p className="font-mono text-xs text-ash truncate">{link.description}</p>
+                  </div>
+
+                  {/* Arrow */}
+                  <ExternalLink className="h-4 w-4 flex-shrink-0 text-ash/50 transition-all group-hover:text-primary" />
                 </div>
 
-                {/* Content */}
-                <div className="flex-1">
-                  <h3 className="font-display text-sm font-bold uppercase tracking-wider text-bone transition-colors group-hover:text-primary">
-                    {link.title}
-                  </h3>
-                  <p className="font-mono text-xs text-ash">{link.description}</p>
-                </div>
-
-                {/* Arrow */}
-                <ExternalLink className="h-4 w-4 text-ash/50 transition-all group-hover:text-primary" />
-              </div>
-
-              {/* Bottom glow */}
-              <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-primary transition-all duration-500 group-hover:w-full group-hover:shadow-[0_0_10px_hsl(var(--blood))]" />
-            </a>
-          ))}
+                {/* Bottom glow */}
+                <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-primary transition-all duration-500 group-hover:w-full group-hover:shadow-[0_0_10px_hsl(var(--blood))]" />
+              </a>
+            );
+          })}
         </div>
 
         {/* No results */}

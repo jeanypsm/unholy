@@ -1,27 +1,8 @@
-import { MessageCircle, Users, Instagram, Skull, Crown, ArrowRight, Music, Gamepad2, Film, BookOpen, Heart, Zap, Globe, Youtube, Twitter, Link2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSiteData } from "@/contexts/SiteDataContext";
+import { getIconComponent } from "@/lib/icons";
 import LinkCard from "./LinkCard";
-
-const getIconForLink = (title: string) => {
-  const iconMap: Record<string, React.ReactNode> = {
-    "Grupo Principal": <Users className="h-6 w-6" />,
-    "WhatsApp": <MessageCircle className="h-6 w-6" />,
-    "Discord": <Skull className="h-6 w-6" />,
-    "Telegram": <Crown className="h-6 w-6" />,
-    "Instagram": <Instagram className="h-6 w-6" />,
-    "Twitter/X": <Twitter className="h-6 w-6" />,
-    "YouTube": <Youtube className="h-6 w-6" />,
-    "Playlists": <Music className="h-6 w-6" />,
-    "Gaming": <Gamepad2 className="h-6 w-6" />,
-    "Filmes": <Film className="h-6 w-6" />,
-    "Regras": <BookOpen className="h-6 w-6" />,
-    "Parcerias": <Heart className="h-6 w-6" />,
-    "Novidades": <Zap className="h-6 w-6" />,
-    "Site Oficial": <Globe className="h-6 w-6" />,
-  };
-  return iconMap[title] || <Link2 className="h-6 w-6" />;
-};
 
 const LinksSection = () => {
   const { data } = useSiteData();
@@ -49,23 +30,25 @@ const LinksSection = () => {
 
         {/* Links grid */}
         <div className="grid gap-4">
-          {homeLinks.map((link, index) => (
-            <div
-              key={link.id}
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <LinkCard 
-                title={link.title}
-                description={link.description}
-                href={link.href}
-                icon={getIconForLink(link.title)}
-              />
-            </div>
-          ))}
+          {homeLinks.map((link, index) => {
+            const IconComp = getIconComponent(link.icon);
+            return (
+              <div
+                key={link.id}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <LinkCard 
+                  title={link.title}
+                  description={link.description}
+                  href={link.href}
+                  icon={<IconComp className="h-6 w-6" />}
+                />
+              </div>
+            );
+          })}
         </div>
 
-        {/* Ver todos os links */}
         <div className="mt-10 text-center">
           <Link
             to="/links"
