@@ -1,28 +1,8 @@
 import { Crown, Skull } from "lucide-react";
-
-interface Member {
-  nick: string;
-  role: string;
-  description: string;
-  avatar: string;
-}
-
-const members: Member[] = [
-  {
-    nick: "DARKL0RD",
-    role: "Fundador",
-    description: "Líder supremo da UNHOLY. Mestre das sombras e guardião dos segredos da aliança.",
-    avatar: "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=dark&backgroundColor=0a0a0a&baseColor=8b0000",
-  },
-  {
-    nick: "NIGHTSHADE",
-    role: "Co-Fundador",
-    description: "Braço direito nas trevas. Estrategista e mentor dos novos membros.",
-    avatar: "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=night&backgroundColor=0a0a0a&baseColor=8b0000",
-  },
-];
+import { useSiteData } from "@/contexts/SiteDataContext";
 
 const MembersSection = () => {
+  const { data } = useSiteData();
   return (
     <section className="relative px-4 py-20">
       {/* Background */}
@@ -48,7 +28,7 @@ const MembersSection = () => {
 
         {/* Members grid */}
         <div className="grid gap-8 md:grid-cols-2">
-          {members.map((member, index) => (
+          {data.members.map((member, index) => (
             <div
               key={member.nick}
               className="animate-fade-in-up group relative"

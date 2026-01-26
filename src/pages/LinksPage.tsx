@@ -1,50 +1,39 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, ArrowLeft, ExternalLink, MessageCircle, Users, Instagram, Music, Gamepad2, Film, BookOpen, Skull, Crown, Heart, Zap, Globe, Youtube, Twitter } from "lucide-react";
+import { Search, ArrowLeft, ExternalLink, MessageCircle, Users, Instagram, Music, Gamepad2, Film, BookOpen, Skull, Crown, Heart, Zap, Globe, Youtube, Twitter, Link2 } from "lucide-react";
 import GridCanvas from "@/components/GridCanvas";
 import ScrollProgress from "@/components/ScrollProgress";
 import MouseFollower from "@/components/MouseFollower";
-
-interface LinkItem {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  href: string;
-  icon: React.ReactNode;
-}
-
-const allLinks: LinkItem[] = [
-  // Grupos
-  { id: "1", title: "Grupo Principal", description: "Grupo oficial da UNHOLY", category: "Grupos", href: "#", icon: <Users className="h-5 w-5" /> },
-  { id: "2", title: "WhatsApp", description: "Grupo de WhatsApp", category: "Grupos", href: "#", icon: <MessageCircle className="h-5 w-5" /> },
-  { id: "3", title: "Discord", description: "Servidor exclusivo", category: "Grupos", href: "#", icon: <Skull className="h-5 w-5" /> },
-  { id: "4", title: "Telegram", description: "Canal de avisos", category: "Grupos", href: "#", icon: <Crown className="h-5 w-5" /> },
-  
-  // Redes Sociais
-  { id: "5", title: "Instagram", description: "@unholy.alianca", category: "Redes Sociais", href: "#", icon: <Instagram className="h-5 w-5" /> },
-  { id: "6", title: "Twitter/X", description: "@unholyalianca", category: "Redes Sociais", href: "#", icon: <Twitter className="h-5 w-5" /> },
-  { id: "7", title: "YouTube", description: "Canal oficial", category: "Redes Sociais", href: "#", icon: <Youtube className="h-5 w-5" /> },
-  
-  // Entretenimento
-  { id: "8", title: "Playlists", description: "Músicas da aliança", category: "Entretenimento", href: "#", icon: <Music className="h-5 w-5" /> },
-  { id: "9", title: "Gaming", description: "Servidor de jogos", category: "Entretenimento", href: "#", icon: <Gamepad2 className="h-5 w-5" /> },
-  { id: "10", title: "Filmes", description: "Recomendações", category: "Entretenimento", href: "#", icon: <Film className="h-5 w-5" /> },
-  
-  // Outros
-  { id: "11", title: "Regras", description: "Leia antes de entrar", category: "Outros", href: "#", icon: <BookOpen className="h-5 w-5" /> },
-  { id: "12", title: "Parcerias", description: "Alianças parceiras", category: "Outros", href: "#", icon: <Heart className="h-5 w-5" /> },
-  { id: "13", title: "Novidades", description: "Últimas atualizações", category: "Outros", href: "#", icon: <Zap className="h-5 w-5" /> },
-  { id: "14", title: "Site Oficial", description: "Página principal", category: "Outros", href: "#", icon: <Globe className="h-5 w-5" /> },
-];
+import { useSiteData } from "@/contexts/SiteDataContext";
 
 const categories = ["Todos", "Grupos", "Redes Sociais", "Entretenimento", "Outros"];
 
+const getIconForLink = (title: string) => {
+  const iconMap: Record<string, React.ReactNode> = {
+    "Grupo Principal": <Users className="h-5 w-5" />,
+    "WhatsApp": <MessageCircle className="h-5 w-5" />,
+    "Discord": <Skull className="h-5 w-5" />,
+    "Telegram": <Crown className="h-5 w-5" />,
+    "Instagram": <Instagram className="h-5 w-5" />,
+    "Twitter/X": <Twitter className="h-5 w-5" />,
+    "YouTube": <Youtube className="h-5 w-5" />,
+    "Playlists": <Music className="h-5 w-5" />,
+    "Gaming": <Gamepad2 className="h-5 w-5" />,
+    "Filmes": <Film className="h-5 w-5" />,
+    "Regras": <BookOpen className="h-5 w-5" />,
+    "Parcerias": <Heart className="h-5 w-5" />,
+    "Novidades": <Zap className="h-5 w-5" />,
+    "Site Oficial": <Globe className="h-5 w-5" />,
+  };
+  return iconMap[title] || <Link2 className="h-5 w-5" />;
+};
+
 const LinksPage = () => {
+  const { data } = useSiteData();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("Todos");
 
-  const filteredLinks = allLinks.filter((link) => {
+  const filteredLinks = data.links.filter((link) => {
     const matchesSearch = 
       link.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       link.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -148,7 +137,7 @@ const LinksPage = () => {
               <div className="flex items-center gap-4">
                 {/* Icon */}
                 <div className="flex h-10 w-10 items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all group-hover:border-primary group-hover:bg-primary/20 group-hover:shadow-[0_0_15px_hsl(var(--blood)/0.5)]">
-                  {link.icon}
+                  {getIconForLink(link.title)}
                 </div>
 
                 {/* Content */}

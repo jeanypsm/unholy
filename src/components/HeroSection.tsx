@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import unholyLogo from "@/assets/unholy-logo.png";
+import { useSiteData } from "@/contexts/SiteDataContext";
 
 const HeroSection = () => {
+  const { data } = useSiteData();
   const [titleVisible, setTitleVisible] = useState(false);
-  const letters = "UNHOLY".split("");
+  const letters = data.allianceName.split("");
 
   useEffect(() => {
     const timer = setTimeout(() => setTitleVisible(true), 500);
@@ -60,7 +62,7 @@ const HeroSection = () => {
           className="animate-fade-in-up font-display text-2xl font-bold uppercase tracking-[0.4em] text-ash sm:text-3xl md:text-4xl"
           style={{ animationDelay: "0.8s" }}
         >
-          ALIANÇA
+          {data.allianceSubtitle}
         </h2>
 
         {/* Decorative line */}
@@ -78,7 +80,7 @@ const HeroSection = () => {
           className="animate-fade-in-up mt-6 font-mono text-sm uppercase tracking-widest text-ash"
           style={{ animationDelay: "1.1s" }}
         >
-          [ CENTRAL DA ALIANÇA ]
+          [ {data.tagline} ]
         </p>
 
         {/* Scroll indicator */}
