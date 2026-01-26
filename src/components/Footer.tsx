@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import unholyArt from "@/assets/unholy-art.png";
 
 const Footer = () => {
@@ -33,12 +34,15 @@ const Footer = () => {
           <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-primary/50" />
         </div>
 
-        {/* Warning label */}
-        <div className="mb-6 inline-block border border-primary/30 bg-primary/5 px-4 py-2">
+        {/* Warning label - Link to login */}
+        <Link
+          to="/login"
+          className="mb-6 inline-block border border-primary/30 bg-primary/5 px-4 py-2 transition-all hover:border-primary hover:bg-primary/10"
+        >
           <span className="font-mono text-xs uppercase tracking-widest text-ash">
             ⚠ CONTEÚDO RESTRITO ⚠
           </span>
-        </div>
+        </Link>
 
         {/* Copyright */}
         <p className="font-mono text-xs text-ash/50">
