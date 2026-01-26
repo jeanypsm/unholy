@@ -1,16 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const ScrollProgress = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = (window.scrollY / totalHeight) * 100;
-      setScrollProgress(progress);
+
+      // Atualização direta sem transição CSS
+      if (lineRef.current) {
+        lineRef.current.style.height = `${progress}%`;
+      }
+      if (dotRef.current) {
+        dotRef.current.style.top = `${progress}%`;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Inicializar
+    
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -20,19 +30,20 @@ const ScrollProgress = () => {
       <div className="fixed left-4 top-0 z-40 h-full w-[2px] bg-primary/10 sm:left-8">
         {/* Linha preenchida */}
         <div
-          className="w-full bg-primary transition-all duration-150 ease-out"
+          ref={lineRef}
+          className="w-full bg-primary"
           style={{
-            height: `${scrollProgress}%`,
+            height: "0%",
             boxShadow: "0 0 20px hsl(var(--blood)), 0 0 40px hsl(var(--blood) / 0.5)",
           }}
         />
         
         {/* Ponto indicador */}
         <div
-          className="absolute left-1/2 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-primary bg-background transition-all duration-150"
+          ref={dotRef}
+          className="absolute left-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-primary bg-background"
           style={{
-            top: `${scrollProgress}%`,
-            transform: `translate(-50%, -50%)`,
+            top: "0%",
             boxShadow: "0 0 15px hsl(var(--blood))",
           }}
         />
