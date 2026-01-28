@@ -232,4 +232,21 @@
   .link-unholy:hover::after {
     width: 100%;
   }
+
+  /* Esconder badge Lovable */
+  [data-lovable-badge],
+  [class*="lovable-badge"],
+  [id*="lovable-badge"],
+  [class*="gptengineer"],
+  [id*="gptengineer"],
+  a[href*="lovable.dev"]:not([href*="docs"]),
+  a[href*="gptengineer.app"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
 }

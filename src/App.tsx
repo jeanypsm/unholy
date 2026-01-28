@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { SiteDataProvider } from "@/contexts/SiteDataContext";
+import BadgeRemover from "@/components/BadgeRemover";
 import Index from "./pages/Index";
 import LinksPage from "./pages/LinksPage";
 import LoginPage from "./pages/LoginPage";
@@ -18,6 +19,7 @@ const App = () => (
     <TooltipProvider>
       <AuthProvider>
         <SiteDataProvider>
+          <BadgeRemover />
           <Toaster />
           <Sonner />
           <BrowserRouter>
