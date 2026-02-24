@@ -9,23 +9,24 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 // Credenciais hardcoded
-const VALID_USERNAME = "Duarte";
-const VALID_PASSWORD = "UnholySempre";
-
+const VALID_CREDENTIALS = [
+  { username: "xulixo", password: "femboypanelagi" },
+  { username: "admazlixo", password: "xulinthebest" },
+];
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const session = localStorage.getItem("unholy_session");
+    const session = localStorage.getItem("az_session");
     if (session === "authenticated") {
       setIsAuthenticated(true);
     }
   }, []);
 
   const login = (username: string, password: string): boolean => {
-    if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+    if (VALID_CREDENTIALS.some(c => c.username === username && c.password === password)) {
       setIsAuthenticated(true);
-      localStorage.setItem("unholy_session", "authenticated");
+      localStorage.setItem("az_session", "authenticated");
       return true;
     }
     return false;
@@ -33,7 +34,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem("unholy_session");
+    localStorage.removeItem("az_session");
   };
 
   return (

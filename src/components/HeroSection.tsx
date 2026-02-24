@@ -32,7 +32,7 @@ const HeroSection = () => {
           </div>
           <img
             src={unholyLogo}
-            alt="UNHOLY ALIANÇA"
+            alt="ALLIANCE AZ"
             className="relative h-48 w-48 object-contain drop-shadow-[0_0_30px_hsl(0_85%_45%/0.5)] sm:h-64 sm:w-64 md:h-80 md:w-80"
           />
         </div>
