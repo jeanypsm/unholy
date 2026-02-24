@@ -26,15 +26,15 @@ export interface SiteData {
 }
 
 const defaultData: SiteData = {
-  allianceName: "UNHOLY",
-  allianceSubtitle: "ALIANÇA",
-  tagline: "CENTRAL DA ALIANÇA",
+  allianceName: "AZ",
+  allianceSubtitle: "ALLIANCE",
+  tagline: "CENTRAL DA ALLIANCE AZ",
   members: [
     {
       id: "1",
       nick: "DARKL0RD",
       role: "Fundador",
-      description: "Líder supremo da UNHOLY. Mestre das sombras e guardião dos segredos da aliança.",
+      description: "Líder supremo da AZ. Mestre das sombras e guardião dos segredos da alliance.",
       avatar: "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=dark&backgroundColor=0a0a0a&baseColor=8b0000",
     },
     {
@@ -46,12 +46,12 @@ const defaultData: SiteData = {
     },
   ],
   links: [
-    { id: "1", title: "Grupo Principal", description: "Grupo oficial da UNHOLY", category: "Grupos", href: "#", icon: "Users" },
+    { id: "1", title: "Grupo Principal", description: "Grupo oficial da AZ", category: "Grupos", href: "#", icon: "Users" },
     { id: "2", title: "WhatsApp", description: "Grupo de WhatsApp", category: "Grupos", href: "#", icon: "MessageCircle" },
     { id: "3", title: "Discord", description: "Servidor exclusivo", category: "Grupos", href: "#", icon: "Skull" },
     { id: "4", title: "Telegram", description: "Canal de avisos", category: "Grupos", href: "#", icon: "Crown" },
-    { id: "5", title: "Instagram", description: "@unholy.alianca", category: "Redes Sociais", href: "#", icon: "Instagram" },
-    { id: "6", title: "Twitter/X", description: "@unholyalianca", category: "Redes Sociais", href: "#", icon: "Twitter" },
+    { id: "5", title: "Instagram", description: "@alliance.az", category: "Redes Sociais", href: "#", icon: "Instagram" },
+    { id: "6", title: "Twitter/X", description: "@allianceaz", category: "Redes Sociais", href: "#", icon: "Twitter" },
     { id: "7", title: "YouTube", description: "Canal oficial", category: "Redes Sociais", href: "#", icon: "Youtube" },
     { id: "8", title: "Playlists", description: "Músicas da aliança", category: "Entretenimento", href: "#", icon: "Music" },
     { id: "9", title: "Gaming", description: "Servidor de jogos", category: "Entretenimento", href: "#", icon: "Gamepad2" },
@@ -76,12 +76,12 @@ const SiteDataContext = createContext<SiteDataContextType | null>(null);
 
 export const SiteDataProvider = ({ children }: { children: ReactNode }) => {
   const [data, setData] = useState<SiteData>(() => {
-    const saved = localStorage.getItem("unholy_site_data");
+    const saved = localStorage.getItem("az_site_data");
     return saved ? JSON.parse(saved) : defaultData;
   });
 
   useEffect(() => {
-    localStorage.setItem("unholy_site_data", JSON.stringify(data));
+    localStorage.setItem("az_site_data", JSON.stringify(data));
   }, [data]);
 
   const updateData = (newData: Partial<SiteData>) => {

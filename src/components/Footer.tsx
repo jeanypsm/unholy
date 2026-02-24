@@ -20,10 +20,10 @@ const Footer = () => {
         {/* Logo text */}
         <div className="mb-6">
           <span className="font-display text-xl font-bold uppercase tracking-[0.3em] text-primary">
-            UNHOLY
+            AZ
           </span>
           <span className="font-display text-xl font-bold uppercase tracking-[0.3em] text-ash">
-            {" "}ALIANÇA
+            {" "}ALLIANCE
           </span>
         </div>
 
@@ -46,7 +46,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <p className="font-mono text-xs text-ash/50">
-          © {new Date().getFullYear()} UNHOLY ALIANÇA • TODOS OS DIREITOS RESERVADOS
+          © {new Date().getFullYear()} ALLIANCE AZ • TODOS OS DIREITOS RESERVADOS
         </p>
 
         {/* Developer credits */}
