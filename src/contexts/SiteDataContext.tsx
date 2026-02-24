@@ -21,6 +21,8 @@ export interface SiteData {
   allianceName: string;
   allianceSubtitle: string;
   tagline: string;
+  heroLogo: string;
+  heroBackground: string;
   members: Member[];
   links: LinkItem[];
 }
@@ -29,6 +31,8 @@ const defaultData: SiteData = {
   allianceName: "AZ",
   allianceSubtitle: "ALLIANCE",
   tagline: "CENTRAL DA ALLIANCE AZ",
+  heroLogo: "",
+  heroBackground: "",
   members: [
     {
       id: "1",

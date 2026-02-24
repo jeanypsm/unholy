@@ -22,7 +22,7 @@ const MembersSection = () => {
             <span className="text-primary"> ]</span>
           </h2>
           <p className="mt-4 font-mono text-sm text-ash">
-            Os guardiões da UNHOLY ALIANÇA
+            Os guardiões da ALLIANCE AZ
           </p>
         </div>
 

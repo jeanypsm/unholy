@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import unholyLogo from "@/assets/unholy-logo.png";
+import defaultLogo from "@/assets/unholy-logo.png";
 import { useSiteData } from "@/contexts/SiteDataContext";
 
 const HeroSection = () => {
@@ -14,6 +14,13 @@ const HeroSection = () => {
 
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-20">
+      {/* Custom background image */}
+      {data.heroBackground && (
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+          style={{ backgroundImage: `url(${data.heroBackground})` }}
+        />
+      )}
       {/* Background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(0_85%_45%/0.15)_0%,_transparent_60%)]" />
       
@@ -31,7 +38,7 @@ const HeroSection = () => {
             <div className="h-full w-full bg-primary/30" />
           </div>
           <img
-            src={unholyLogo}
+            src={data.heroLogo || defaultLogo}
             alt="ALLIANCE AZ"
             className="relative h-48 w-48 object-contain drop-shadow-[0_0_30px_hsl(0_85%_45%/0.5)] sm:h-64 sm:w-64 md:h-80 md:w-80"
           />

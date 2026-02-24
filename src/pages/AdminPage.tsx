@@ -15,7 +15,8 @@ import {
   Users,
   Link2,
   Settings,
-  ChevronDown
+  ChevronDown,
+  Image
 } from "lucide-react";
 
 const AdminPage = () => {
@@ -35,6 +36,8 @@ const AdminPage = () => {
     allianceName: data.allianceName,
     allianceSubtitle: data.allianceSubtitle,
     tagline: data.tagline,
+    heroLogo: data.heroLogo,
+    heroBackground: data.heroBackground,
   });
   
   const [newMember, setNewMember] = useState<Omit<Member, "id">>({
@@ -155,7 +158,7 @@ const AdminPage = () => {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-2 sm:gap-4">
             <h1 className="font-display text-base font-bold uppercase tracking-wider sm:text-xl">
-              <span className="text-primary">UNHOLY</span> <span className="hidden sm:inline">ADMIN</span>
+              <span className="text-primary">AZ</span> <span className="hidden sm:inline">ADMIN</span>
             </h1>
           </div>
           
@@ -238,6 +241,58 @@ const AdminPage = () => {
                   onChange={(e) => setGeneralForm({ ...generalForm, tagline: e.target.value })}
                   className="w-full border border-primary/30 bg-card px-4 py-3 font-mono text-bone focus:border-primary focus:outline-none"
                 />
+              </div>
+
+              <div>
+                <label className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ash">
+                  <Image className="h-4 w-4 text-primary" />
+                  Logo Principal (URL da imagem)
+                </label>
+                <input
+                  type="url"
+                  value={generalForm.heroLogo}
+                  onChange={(e) => setGeneralForm({ ...generalForm, heroLogo: e.target.value })}
+                  placeholder="https://exemplo.com/logo.png (deixe vazio para usar o padrão)"
+                  className="w-full border border-primary/30 bg-card px-4 py-3 font-mono text-bone focus:border-primary focus:outline-none"
+                />
+                {generalForm.heroLogo && (
+                  <div className="mt-2 flex items-center gap-4">
+                    <img src={generalForm.heroLogo} alt="Preview logo" className="h-16 w-16 border border-primary/30 object-contain" />
+                    <button
+                      type="button"
+                      onClick={() => setGeneralForm({ ...generalForm, heroLogo: "" })}
+                      className="font-mono text-xs text-destructive hover:underline"
+                    >
+                      Remover
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ash">
+                  <Image className="h-4 w-4 text-primary" />
+                  Imagem de Fundo (URL da imagem)
+                </label>
+                <input
+                  type="url"
+                  value={generalForm.heroBackground}
+                  onChange={(e) => setGeneralForm({ ...generalForm, heroBackground: e.target.value })}
+                  placeholder="https://exemplo.com/fundo.png (deixe vazio para sem imagem)"
+                  className="w-full border border-primary/30 bg-card px-4 py-3 font-mono text-bone focus:border-primary focus:outline-none"
+                />
+                {generalForm.heroBackground && (
+                  <div className="mt-2 flex items-center gap-4">
+                    <img src={generalForm.heroBackground} alt="Preview fundo" className="h-16 w-24 border border-primary/30 object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => setGeneralForm({ ...generalForm, heroBackground: "" })}
+                      className="font-mono text-xs text-destructive hover:underline"
+                    >
+                      Remover
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
 
